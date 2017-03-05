@@ -1,4 +1,4 @@
-# Google Cloud Project Management
+# Google Cloud Project Management with Terraform
 
 Use terraform to provision and manage organizational GCP projects.
 
