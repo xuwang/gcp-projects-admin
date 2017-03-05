@@ -1,0 +1,9 @@
+account.json
+*.pem
+*.key
+*.jpg
+.DS_Store
+.terraform
+.vagrant
+*.tfstate
+*.backup
