@@ -24,7 +24,6 @@ This allows project management by codification:
 * GCP orgnization Billing ID
 
 
-
 ## Provision a new GCP project
 
 ### Setup GCP organization credentials
@@ -32,8 +31,8 @@ This allows project management by codification:
 Edit common/env.sh:
 
 ```
-# setup gcp service account key file
-export GCP_KEY_FILE=
+# gcp service account key abslute file path
+export GOOGLE_APPLICATION_CREDENTIALS=
 # setup terraform remote state bucket project id
 export GCP_ADMIN_PROJECT_ID=
 # setup gcp organization id
@@ -47,10 +46,12 @@ export TF_VAR_billing_id=
 * Copy projert terraform templates:
 
   ```
+  $ cd projects
   $ cp -r project-example <new-project-id>
   $ cd <new-project-id>
   ```
-  _note_: the <new-project-id> must be unique on GCP
+  _Note_: The \<new-project-id\> must be unique on GCP.
+  A project ID cannot be changed after the project is created, so if you are creating a new project, be sure to choose an ID that you'll be comfortable using for the lifetime of the project.
 
 * Modify `iam.tf` to bind project members and service accounts to roles, then
 
@@ -64,7 +65,7 @@ export TF_VAR_billing_id=
   # provision the project
   $ make apply
   ```
-  _note_: [Terraform reference for IAM is here](https://www.terraform.io/docs/providers/google/)
+  _Note_: [Terraform reference for IAM is here](https://www.terraform.io/docs/providers/google/)
 
   That's it.
 
