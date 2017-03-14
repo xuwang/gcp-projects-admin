@@ -71,7 +71,7 @@ export TF_VAR_billing_id=
 
 ## Modify an exsiting GCP project
 
-Go to the projects/\<project-name\> dir and 
+Go to the projects/\<project-id\> dir and 
 
   * modify service-account.tf to add/delete service accounts
   * modify iam.tf to bind project members and service accounts to roles
