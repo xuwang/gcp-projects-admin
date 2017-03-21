@@ -18,45 +18,43 @@ help: ## this info
 auth: ## activate gclound service account
 	@gcloud auth activate-service-account --key-file ${GOOGLE_APPLICATION_CREDENTIALS}
 
-remote: auth ## setup and config Terraform remote state
-	@echo set remote state to gcs://${REMOTE_STATE_BUCKET}/${REMOTE_STATE_PATH}
+init: ## Initialize terraform if the remote state is not setup.
+	@if [ -a .terraform/terraform.tfstate ] && [ -a init.tf ]; then echo "Already initialized"; else make remote; fi
 
-	@if ! gsutil ls -p ${GCP_ADMIN_PROJECT_ID} gs://${REMOTE_STATE_BUCKET}; \
+remote: auth ## setup and config Terraform remote state
+	@echo set remote state to gs://${TF_REMOTE_STATE_BUCKET}/${TF_REMOTE_STATE_PATH}
+
+	@if ! gsutil ls -p ${GCP_ADMIN_PROJECT_ID} gs://${TF_REMOTE_STATE_BUCKET}/${TF_REMOTE_STATE_PATH}; \
 	then \
 		echo creating bucket for remote state ... ; \
-		gsutil mb -p ${GCP_ADMIN_PROJECT_ID} gs://${REMOTE_STATE_BUCKET}; \
+		gsutil mb -p ${GCP_ADMIN_PROJECT_ID} gs://${TF_REMOTE_STATE_BUCKET}/${TF_REMOTE_STATE_PATH}; \
 		sleep 30; \
 	fi
+	cat ../../common/init.conf | envsubst > init.tf
+	terraform init
 
-	@grep -q ${REMOTE_STATE_PATH} ${LOCAL_STATE_PATH} &> /dev/null || \
-	( terraform remote config \
-    	-backend=gcs \
-    	-backend-config="project=${GCP_ADMIN_PROJECT_ID}" \
-    	-backend-config="bucket=${REMOTE_STATE_BUCKET}" \
-    	-backend-config="path=${REMOTE_STATE_PATH}"; )
-
-plan: remote ## plan the gcp project provisioning
+plan: init ## plan the gcp project provisioning
 	terraform plan
 
-apply: remote ## provisioning the gcp project
+apply: init ## provisioning the gcp project
 	terraform apply
 
-show: remote ## show gcp project resources
+show: init ## show gcp project resources
 	terraform show
 
-destroy: remote ## destroy the gcp project, DON'T DO IT
+destroy: init ## destroy the gcp project, DON'T DO IT
 	terraform destroy ${DESTROY_OPTS}
 
-refresh: remote ## refresh state from the gcp project
+refresh: init ## refresh state from the gcp project
 	terraform refresh
 
 clean: ## delete local terraform state
 	rm -rf .terraform
 
-remote-push: remote ## push state to remote
+remote-push: init ## push state to remote
 	terraform remote push
 
-remote-pull: remote ## pull state from remote
+remote-pull: init ## pull state from remote
 	terraform remote pull
 
 .PHONY: auth remote plan apply show destroy clean remote_push remote_pull

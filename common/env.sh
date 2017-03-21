@@ -1,21 +1,21 @@
 # GCLOUD Configuration for remote state and project
 
-# gcp service account key abslute file path
+# gcp service account key abslute file path, do NOT quote
 export GOOGLE_APPLICATION_CREDENTIALS=
-# tremote state bucket project id
+# tremote state bucket project id, do NOT quote
 export GCP_ADMIN_PROJECT_ID=
-# gcp organization id
+# gcp organization id, do NOT quote
 export TF_VAR_org_id=
-# gcp organization billing id
+# gcp organization billing id, do NOT quote
 export TF_VAR_billing_id=
 
 export GCP_CONFIGURATION=gcp-projects-admin
 export CLOUDSDK_CONTAINER_USE_CLIENT_CERTIFICATE=True
 
 # Terraform state files
-export LOCAL_STATE_PATH=.terraform/terraform.tfstate
-export REMOTE_STATE_BUCKET=${GCP_ADMIN_PROJECT_ID}-terraform
-export REMOTE_STATE_PATH=projects/${GCP_PROJECT_ID}
+export TF_VERSION=~>0.9
+export TF_REMOTE_STATE_BUCKET=${GCP_ADMIN_PROJECT_ID}-terraform
+export TF_REMOTE_STATE_PATH=projects/${GCP_PROJECT_ID}.tfstate
 
 # Terraform vars
 export DESTROY_OPTS=

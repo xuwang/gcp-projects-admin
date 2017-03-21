@@ -14,7 +14,7 @@ This allows project management by codification:
 ## Prerequisites
 
 * [Install Google Cloud SDK](https://cloud.google.com/container-engine/docs/before-you-begin)
-* [Install Terraform v0.8.8+](https://www.terraform.io/intro/getting-started/install.html) 
+* [Install Terraform v0.9+](https://www.terraform.io/intro/getting-started/install.html) 
 * A GCP orgnization service account which must have the following IAM roles:
   * roles/storage.admin
   * roles/resourcemanager.projectCreator 
@@ -22,7 +22,13 @@ This allows project management by codification:
   * roles/billing.admin
 * GCP orgnization ID
 * GCP orgnization Billing ID
+* On MacOS, you need to install gettext:
 
+  ```
+  # for MacOS
+  brew install gettext
+  brew link --force gettext
+  ```
 
 ## Provision a new GCP project
 
