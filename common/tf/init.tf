@@ -7,6 +7,6 @@ terraform {
 	bucket="${TF_REMOTE_STATE_BUCKET}"
 	path="${TF_REMOTE_STATE_PATH}"
 	project="${GCP_ADMIN_PROJECT_ID}"
-	credentials="${GOOGLE_APPLICATION_CREDENTIALS}"
+	credentials="${TF_VAR_google_credentials_file}"
   }
 }

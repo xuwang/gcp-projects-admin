@@ -7,4 +7,5 @@ account.json
 .vagrant
 *.tfstate
 *.backup
-init.tf
+build
+secrets

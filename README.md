@@ -14,7 +14,7 @@ This allows project management by codification:
 ## Prerequisites
 
 * [Install Google Cloud SDK](https://cloud.google.com/container-engine/docs/before-you-begin)
-* [Install Terraform v0.9+](https://www.terraform.io/intro/getting-started/install.html) 
+* [Install Dockder](https://docs.docker.com/engine/installation/#platform-support-matrix)
 * A GCP orgnization service account which must have the following IAM roles:
   * roles/storage.admin
   * roles/resourcemanager.projectCreator 
@@ -86,7 +86,7 @@ Go to the projects/\<project-id\> dir and
   as needed, then
 
   ```
-  $ make plan
+  $ make upate
   $ make apply
   ```
   
@@ -99,3 +99,32 @@ GCP user accounts are managed by Google Directory API and not covered by this re
 
 Destroy a project will not be "destroyed immediately" instead it will be shut down and scheduled to be deleted after 7 days. 
 A destroyed project name will not be available for reuse in 7 days.
+
+### API enable error
+
+If you get errors similar to this one:
+
+```
+* google_project_services.project_services: Error creating services: Error enabling service "dataproc-control.googleapis.com" for project "som-irt-test": googleapi: Error 403: Service 'dataproc-control.googleapis.com' not found or permission denied., forbidden
+```
+
+This error can occur when the API activation for Cloud Dataproc fails. You just need to try again:
+
+```
+$ make apply
+```
+
+See [stackoverflow on this issue](http://stackoverflow.com/questions/33047096/error-403-when-creating-cloud-dataproc-cluster-permission-denied)
+
+### Invalid JWT error
+
+if you get this error:
+
+```
+Response: {
+  "error" : "invalid_grant",
+  "error_description" : "Invalid JWT: Token must be a short-lived token and in a reasonable timeframe"
+}
+```
+
+Most likely, it caused by time-in-container-is-out-of-sync, just restart your docker daemon should resolve the problem.
