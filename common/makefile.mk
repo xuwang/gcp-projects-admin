@@ -79,8 +79,8 @@ list-provision-key: ## list provision service account keys
 		--project=${GCP_PROJECT_ID} 
 
 new-provision-key: ## create a private key for the provision service account, save in secrets/${GCP_PROJECT_ID}/provision.json
-	@mkdir -p ${SEC_PATH}/${GCP_PROJECT_ID}
-	@if [ -a ${SEC_PATH}/${GCP_PROJECT_ID}/provision.json ] ; \
+	@mkdir -p secrets/${GCP_PROJECT_ID}
+	@if [ -a secrets/${GCP_PROJECT_ID}/provision.json ] ; \
 	then \
 		echo "ERROR: ${SEC_PATH}/${GCP_PROJECT_ID}/provision.json exist, revoke before create a new one" ; \
 	else \
@@ -90,8 +90,8 @@ new-provision-key: ## create a private key for the provision service account, sa
 	fi
 
 new-gcr-user-key: ## create a private key for the gcr service account, save in secrets/${GCP_PROJECT_ID}/gcr-user.json
-	@mkdir -p ${SEC_PATH}/${GCP_PROJECT_ID}
-	@if [ -a ${SEC_PATH}/${GCP_PROJECT_ID}/gcr-use.json ] ; \
+	@mkdir -p secrets/${GCP_PROJECT_ID}
+	@if [ -a secrets/${GCP_PROJECT_ID}/gcr-use.json ] ; \
 	then \
 		echo "ERROR: ${SEC_PATH}/${GCP_PROJECT_ID}/provision.json exist, revoke before create a new one" ; \
 	else \
@@ -101,8 +101,8 @@ new-gcr-user-key: ## create a private key for the gcr service account, save in s
 	fi
 
 new-gcr-pull-key: ## create a private key for the gcr-pull service account, save in secrets/${GCP_PROJECT_ID}/gcr-pull.json
-	@mkdir -p ${SEC_PATH}/${GCP_PROJECT_ID}
-	@if [ -a ${SEC_PATH}/${GCP_PROJECT_ID}/gcr-pull.json ] ; \
+	@mkdir -p secrets/${GCP_PROJECT_ID}
+	@if [ -a secrets/${GCP_PROJECT_ID}/gcr-pull.json ] ; \
 	then \
 		echo "ERROR: ${SEC_PATH}/${GCP_PROJECT_ID}/provision.json exist, revoke before create a new one" ; \
 	else \

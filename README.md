@@ -1,6 +1,6 @@
 # Google Cloud Project Management with Terraform
 
-Use terraform to provision and manage organizational GCP projects.
+Use terraform container to provision and manage organizational GCP projects.
 
 This allows project management by codification:
 
