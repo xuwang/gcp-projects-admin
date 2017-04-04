@@ -13,7 +13,7 @@ help: ## this info
 	@echo '_________________'
 	@echo '| Make targets: |'
 	@echo '-----------------'
-	@cat ../../common/Makefile | grep -E '^[a-zA-Z_-]+:.*?## .*$$' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@cat ../../common/makefile.mk | grep -E '^[a-zA-Z_-]+:.*?## .*$$' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 auth: ## activate gclound service account
 	cd ../..; make auth
